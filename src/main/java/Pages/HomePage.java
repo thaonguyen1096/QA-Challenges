@@ -5,6 +5,7 @@ import org.openqa.selenium.support.PageFactory;
 import static org.junit.Assert.assertEquals;
 
 import PageObject.HomePOM;
+import io.qameta.allure.Step;
 
 public class HomePage extends HomePOM
 {
@@ -15,6 +16,8 @@ public class HomePage extends HomePOM
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
+	
+	@Step("Verify Home Pages")
 	public void verifyHomePage()
 	{
 		assertEquals("Swag Labs", driver.getTitle());

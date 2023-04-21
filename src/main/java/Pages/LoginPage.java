@@ -5,6 +5,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import Keyworks.Keyworks;
 import PageObject.LoginPOM;
+import io.qameta.allure.Step;
 
 public class LoginPage extends LoginPOM 
 {
@@ -17,12 +18,10 @@ public class LoginPage extends LoginPOM
 		PageFactory.initElements(driver, this);
 		keyworks = new Keyworks(driver);
 	}
-
+	
+	@Step("Input username, passoword and click Login")
 	public void inputUserNamePassword(String username, String password) 
 	{
-//		txtUserName.sendKeys(username);
-//		txtPassword.sendKeys(password);
-//		btnLogin.click();
 		keyworks.SendKey(txtUserName, username);
 		keyworks.SendKey(txtPassword, password);
 		keyworks.ClickOn(btnLogin);

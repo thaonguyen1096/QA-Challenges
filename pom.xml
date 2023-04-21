@@ -3,6 +3,10 @@
   <groupId>QA-Challenges</groupId>
   <artifactId>QA-Challenges</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <properties>
+    <aspectj.version>1.9.19</aspectj.version>
+    <allure.maven.version>2.0</allure.maven.version>
+	</properties>
   <dependencies>
 		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
 		<dependency>
@@ -17,23 +21,63 @@
 		    <version>5.3.2</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
-		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
 		    <groupId>junit</groupId>
 		    <artifactId>junit</artifactId>
 		    <version>4.12</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.testng/testng -->
+		<!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-junit4 -->
 		<dependency>
-		    <groupId>org.testng</groupId>
-		    <artifactId>testng</artifactId>
-		    <version>7.7.1</version>
-		    <scope>test</scope>
+		    <groupId>io.qameta.allure</groupId>
+		    <artifactId>allure-junit4</artifactId>
+		    <version>2.21.0</version>
 		</dependency>
 		<dependency>
-			<groupId>JavaWebAutomation</groupId>
-			<artifactId>JavaWebAutomation</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
-    </dependencies>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.30</version>
+        </dependency>
+  </dependencies>   
+
+ <build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.20</version>
+            <configuration>
+                <testFailureIgnore>false</testFailureIgnore>
+                <argLine>
+                    -javaagent:"${repositorySystemSession}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                </argLine>
+                <properties>
+                    <property>
+                        <name>listener</name>
+                        <value>io.qameta.allure.junit4.AllureJunit4</value>
+                    </property>
+                </properties>
+            </configuration>
+            <dependencies>
+                <dependency>
+                    <groupId>org.aspectj</groupId>
+                    <artifactId>aspectjweaver</artifactId>
+                    <version>${aspectj.version}</version>
+                </dependency>
+            </dependencies>
+        </plugin>
+    </plugins>
+</build>
+<reporting>
+    <excludeDefaults>true</excludeDefaults>
+    <plugins>
+        <plugin>
+		    <groupId>io.qameta.allure</groupId>
+		    <artifactId>allure-maven</artifactId>
+		    <version>2.12.0</version>
+            <configuration>
+                <outputDirectory>target/allure-report</outputDirectory>
+            </configuration>
+        </plugin>
+    </plugins>
+</reporting>
 </project>

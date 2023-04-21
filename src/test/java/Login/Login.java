@@ -1,6 +1,10 @@
 package Login;
 
 import Pages.LoginPage;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Step;
+import io.qameta.allure.junit4.DisplayName;
+import io.qameta.allure.listener.*;
 import Pages.HomePage;
 import Browser.BrowserFactory;
 import Browser.BrowserFactory.browserType;
@@ -16,7 +20,8 @@ import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 
 
-
+@Feature("Login")
+//@Listeners(TestExecutionListener.class)
 @RunWith(Parameterized.class)
 public class Login {
 	static WebDriver driver;
@@ -49,6 +54,7 @@ public class Login {
 	}
 	
 	@Test
+	@DisplayName("Verify Login successfully")
 	public void testLogin() 
 	{
 		LoginPage loginPage = new LoginPage(driver);
